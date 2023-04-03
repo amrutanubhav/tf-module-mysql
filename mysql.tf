@@ -35,7 +35,7 @@ resource "aws_db_parameter_group" "mysql" {
 # creates a subnet group
 resource "aws_db_subnet_group" "mysql" {
   name       = "roboshop-${var.ENV}-mysql-subnet-group"
-  subnet_ids = [data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNET_IDS]
+  subnet_ids = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNET_IDS
 
   tags = {
     Name = "roboshop-${var.ENV}-mysql-subnet-group"
