@@ -1,5 +1,3 @@
-
-
 #this block provisions rds
 
 resource "aws_db_instance" "mysql" {
@@ -12,7 +10,7 @@ resource "aws_db_instance" "mysql" {
   password             = "RoboShop1"
   parameter_group_name = aws_db_parameter_group.mysql.name
   db_subnet_group_name = aws_db_subnet_group.mysql.name
-  security_group_names = [aws_security_group.allow_mysql.name]
+  vpc_security_group_ids = [aws_security_group.allow_mysql.id]
   skip_final_snapshot  = true
 }
 
@@ -34,11 +32,11 @@ resource "aws_db_parameter_group" "mysql" {
 
 # creates a subnet group
 resource "aws_db_subnet_group" "mysql" {
-  name       = "roboshop-${var.ENV}-mysql-subnet-group"
+  name       = "roboshop-${var.ENV}-rds-pg"
   subnet_ids = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNET_IDS
 
   tags = {
-    Name = "roboshop-${var.ENV}-mysql-subnet-group"
+    Name = "roboshop-${var.ENV}-mysql-subnet-grp"
   }
 }
 
