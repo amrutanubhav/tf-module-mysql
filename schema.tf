@@ -26,7 +26,7 @@ resource "null_resource" "mysql-schema" {
         curl -s -L -o /tmp/mysql.zip "https://github.com/stans-robot-project/mysql/archive/main.zip"
         unzip -o mysql.zip 
         cd mysql-main 
-        mysql -h ${aws_db_instance.mysql.address} -u admin1 -p Roboshop1 <shipping.sql
+        mysql -h ${aws_db_instance.mysql.address} -u admin1 -p RoboShop1 <shipping.sql
         EOF
   }  
 }
