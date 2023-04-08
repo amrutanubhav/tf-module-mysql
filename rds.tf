@@ -1,11 +1,11 @@
 #this block provisions rds
 
 resource "aws_db_instance" "mysql" {
-  allocated_storage    = 10
+  allocated_storage    = var.RDS_MYSQL_STORAGE
   identifier           = "roboshop-${var.ENV}-mysql"
   engine               = "mysql"
-  engine_version       = "5.7"
-  instance_class       = "db.t3.micro"
+  engine_version       = var.RDS_MYSQL_ENGINE_VERSION
+  instance_class       = var.RDS_INSTANCE_TYPE
   username             = "admin1"
   password             = "RoboShop1"
   parameter_group_name = aws_db_parameter_group.mysql.name
@@ -17,7 +17,7 @@ resource "aws_db_instance" "mysql" {
 # creates a parameter group
 resource "aws_db_parameter_group" "mysql" {
   name   = "roboshop-${var.ENV}-mysql-pg"
-  family = "mysql5.7"
+  family = "mysql${var.RDS_MYSQL_ENGINE_VERSION}"
 
   parameter {
     name  = "character_set_server"
